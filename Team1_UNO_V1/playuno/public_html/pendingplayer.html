@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Pending....  </title>
+        <script src="js/jquery.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <script>
+            $(function () {
+
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://localhost:8080/Team1Servlet/api/game/playerpending',
+                    crossDomain: true,
+                    dataType: 'text',
+                    success: function (data) {
+                        var json = $.parseJSON(data);
+                        $('#gname').append("Waiting For " + json.gname + " to start");
+                        $('#gid').val(json.gid);
+                        $('#pid').val(json.pid);
+                        console.log(data);
+                    }
+                });
+            });
+        </script>
+
+    </head>
+    <body>
+        <img src="images/uno_left.jpg" alt="uno" class="photo_left">
+            <form action="http://localhost:8080/Team1Servlet/api/game/plyerstartgame" method="post">
+                <div class="box">
+                    <div class="create">
+                        <div class="btn_separate"></div>
+                            <h1 id="gname"></h1> 
+                            <input type="hidden" name="gid" id="gid">
+                            <input type="hidden" name="pid" id="pid">
+                        <div class="button">
+                            <button type="submit" name="start" class="btnStyle" id="btnStartGame" >Start Game</button>
+           
+                        </div>
+                    </div>  
+                </div>
+            </form>
+    </body>   
+</html>

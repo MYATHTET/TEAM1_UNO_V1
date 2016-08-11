@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>UNO Start</title>
+        <script src="js/jquery.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/baraja.css" />        
+	<link rel="stylesheet" type="text/css" href="css/custom.css" />
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script type="text/javascript" src="js/jquery.baraja.js"></script>
+        <script>
+            $(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://localhost:8080/Team1Servlet/api/game/spreadcard',
+                    crossDomain: true,
+                    dataType: 'text',
+                    success: function (data) {
+
+                        var json = $.parseJSON(data);
+
+                        for (var i = 0; i < json.length; i++)
+                        {
+                            $('#demo').append('<img src="images/' + json[i].image + '.png" />');
+
+                        }
+                    }
+
+                });
+            });
+        </script>
+        
+        <script type="text/javascript">	
+	$(function()  {
+                          $( '#nav-fan' ).on( 'click', function( event ) {
+			baraja.fan( {
+                        speed : 500,
+			easing : 'ease-out',
+			range : 90,
+			direction : 'right',
+			origin : { x : 25, y : 100 },
+			center : true
+			} );  
+                      });
+        </script>
+    </head>
+    <body>        
+        <img src="images/uno_left.jpg" alt="uno" class="photo_left">         
+            <div class="box">
+                <div class="create">
+                    <div class="btn_separate"></div>
+                        <h1>UNO PLAY</h1>
+                        <h1>Your Game is starting.</h1>  
+                        <p id="demo"></p>
+                </div>  
+            </div>
+    </body>
+</html>

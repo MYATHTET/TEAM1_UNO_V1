@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>UNO Table Dealer</title>
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <script src="js/jquery.js"></script>
+
+        <script>
+            $(function () {
+             //   alert('Its Work');
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://localhost:8080/Team1Servlet/api/game/playerlist',
+                    crossDomain: true,
+                    dataType: 'text',
+                    success: function (data) {
+
+                        var json = $.parseJSON(data);
+
+                        for (var i = 0; i < json.length; i++)
+                                {
+                                    // $('#game').append('<h1>' + json.gname + '</h1>');
+                                    $('#demo').append('<img width="40px" height="40px" src="images/pIcon.jpg"/>');
+//                                    $('#demo').append('<div class="pname">' + json[i].pid + " : " + json[i].name + '</div>');
+                                    $('#demo').append( json[i].pid + " : " + json[i].name + '<br>');
+                                    
+                                }
+                            }
+                        });
+            });
+        </script>
+        <script>
+                    $(function () {
+                        $.ajax({
+                            type: 'GET',
+                            url: 'http://localhost:8080/Team1Servlet/api/game/discardcard',
+                            crossDomain: true,
+                            dataType: 'text',
+                            success: function (data) {
+                                var json = $.parseJSON(data);
+                                $('#game').append('<h1>' + json.gname + '</h1>');
+                                $('#game').append('<img src="images/' + json.image + '.png" />');
+                                $('#game').append('<img src="images/back.png" />');
+                                $('#gid').val(json.gid);
+                                console.log(data);
+                            }
+                        });
+                    });
+        </script>
+
+    </head>
+    <body>
+        <img src="images/uno_left.jpg" alt="uno" class="photo_left">
+        <div class="box">
+            
+               <div class="btn_separate"></div>
+                <h1>Player List</h1>
+                <p id="demo">
+
+                </p>
+                <h1>UNO with friends</h1>
+                <p id="game">
+
+                </p>
+                <input type="hidden" name="gid" id="gid">
+            
+        </div>
+    </body>
+</html>

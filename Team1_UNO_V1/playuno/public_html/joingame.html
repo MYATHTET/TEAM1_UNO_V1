@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Join Session</title>
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <script src="js/jquery.js"></script>
+
+        <script>
+            $(function () {
+
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://localhost:8080/Team1Servlet/api/game/gamelist',
+                    crossDomain: true,
+                    dataType: 'text',
+                    success: function (data) {
+
+                        var json = $.parseJSON(data);
+
+                        for (var i = 0; i < json.length; i++)
+                        {
+                            $('#gid').append('<option value="' + json[i].gid + '">' + json[i].name + ' (' + json[i].gid + ')' + '</option>');
+                        }
+                    }
+
+                });
+            });
+        </script>
+       
+    </head>    
+    <body>
+      <img src="Images/uno_left.jpg" alt="uno" class="photo_left">
+        <div class="box">
+            <div class="create">
+                <div class="btn_separate"></div>
+                    <form action="http://localhost:8080/Team1Servlet/api/game/joingame" method="post">
+                        <h1>Available Games</h1>                        
+                            <div class="wrapper">
+                                <select size="15" class="selection" name="gid" id="gid">
+
+                                </select>
+                            </div>
+                        <label>Player Name:</label>  
+                        <input type="text" name="pname"  id="pname" >
+                        <div class="button">
+                            <button type="submit" class="btnStyle" name="join">Add Player</button>
+                        </div>
+                    </form>                
+            </div>  
+        </div>
+    </body>
+</html>
